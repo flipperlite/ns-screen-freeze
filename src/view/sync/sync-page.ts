@@ -8,10 +8,10 @@ import { Util } from '~/shared/util'
 //=======================================
 
 let HANDLE = null
-const RELOAD_TIME_RANDOM: number = 500 // max time between each page reload
+const RELOAD_TIME_RANDOM_MAX: number = 500 // max time between each page reload
 
 // validadtion
-if (RELOAD_TIME_RANDOM <= 0) throw new Error(`RELOAD_TIME_RANDOM "${RELOAD_TIME_RANDOM}" must be greater than zero`)
+if (RELOAD_TIME_RANDOM_MAX <= 0) throw new Error(`RELOAD_TIME_RANDOM_MAX "${RELOAD_TIME_RANDOM_MAX}" must be greater than zero`)
 
 let vm: SyncViewModel
 
@@ -26,7 +26,7 @@ export function _navigatingTo(data: NavigatedData) {
   page.bindingContext = vm
 
   // will eventually freeze the screen with reload button off the screen as it's not loading the CSS correctly
-  const reloadTime = Util.randomInt(RELOAD_TIME_RANDOM)
+  const reloadTime = Util.randomInt(RELOAD_TIME_RANDOM_MAX)
   HANDLE = setTimeout(() => {
     console.info('go', Nav.currentPageRoute, new Date().toISOString())
     Nav.reloadContext({ id: vm.id, reloadTime })

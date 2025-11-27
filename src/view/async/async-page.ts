@@ -8,17 +8,20 @@ import { Util } from '~/shared/util'
 //=======================================
 
 // all units of time are milliseconds
-const RESPONSE_TIME_DEFAULT: number = 700 // the first run time. E.g. 700
-const RESPONSE_TIME_DECREMENT: number = 25 // amount of time to decrement on each reload, set to zero for no decrement
+const RESPONSE_TIME_DEFAULT: number = 1000 // the first run time. E.g. 1000
+const RESPONSE_TIME_DECREMENT: number = 50 // amount of time to decrement on each reload, set to zero for no decrement
 const RELOAD_TIME: number = 1000 // time between each page reload
 let HANDLE = null // clear the timeout on Page.unloaded
+
+const _RESPONSE_TIME_MIN: number = 50 // don't change this value
 
 let vm: AsyncViewModel
 
 // validation
 if (RESPONSE_TIME_DECREMENT < 0 || RESPONSE_TIME_DECREMENT > RESPONSE_TIME_DEFAULT) throw new Error(`RESPONSE_TIME_DECREMENT "${RESPONSE_TIME_DECREMENT}" must be greater than or equal to zero and less than RESPONSE_TIME_DEFAULT`)
-if (RESPONSE_TIME_DEFAULT <= 0) throw new Error(`RESPONSE_TIME_DEFAULT "${RESPONSE_TIME_DEFAULT}" must be greater than zero`)
+if (RESPONSE_TIME_DEFAULT <= _RESPONSE_TIME_MIN) throw new Error(`RESPONSE_TIME_DEFAULT "${RESPONSE_TIME_DEFAULT}" must be greater than _RESPONSE_TIME_MIN`)
 if (RELOAD_TIME <= 0) throw new Error(`RELOAD_TIME "${RELOAD_TIME}" must be greater than zero`)
+if (_RESPONSE_TIME_MIN <= 0) throw new Error(`_RESPONSE_TIME_MIN "${_RESPONSE_TIME_MIN}" must be greater than zero`)
 
 export async function _navigatingTo(data: NavigatedData) {
   const page = <Page>data.object
