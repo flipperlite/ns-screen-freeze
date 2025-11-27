@@ -20,7 +20,7 @@
     <GridLayout rows="*" class="page__content">
         <StackLayout row="0" visibility="{{ isWaiting ? 'visible' : 'collapsed' }}">
 
-            <Label class="page__content-placeholder" text="{{ 'Waiting on API (' + responseTime + ' ms)' }}" id="msgWaiting"></Label>
+            <Label class="page__content-placeholder" text="{{ 'Waiting on mock API (' + responseTime + ' ms)' }}" id="msgWaiting"></Label>
         </StackLayout>
 
         <StackLayout row="0" visibility="{{ !isWaiting ? 'visible' : 'collapsed' }}">

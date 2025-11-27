@@ -14,7 +14,7 @@ export async function _navigatingTo(data: NavigatedData) {
   vm.id = Util.getNextLetter(vm.id)
   console.log(`${Nav.currentPageRoute} async _navigatingTo`)
 
-  const text = 'Open Side Drawer and choose iOS Crash Async or iOS Crash Sync. Then wait for screen to freeze with reload icon pushed almost off screen. The app will be unresponsive and the console will stop logging. The following have crashed:'
+  const text = 'Open Side Drawer and choose Crash Async or Crash Sync. Then wait for screen to freeze by watching the console output stop. The following have crashed:'
   const platforms = new ObservableArray([
     'Simulator iPhone 17 Pro (iOS 26.1)',
     'Simulator iPhone 15 Pro (iOS 17.2)',

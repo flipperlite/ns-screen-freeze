@@ -42,24 +42,24 @@
 
                     <GridLayout
             columns="auto, *"
-            class="{{ 'nt-drawer__list-item' + (selectedPage === 'iOS Crash Async' ? ' -selected': '') }}"
+            class="{{ 'nt-drawer__list-item' + (selectedPage === 'Crash Async' ? ' -selected': '') }}"
             route="view/async/async-page"
-            title="iOS Crash Async"
+            title="Crash Async"
             tap="onNavigationItemTap"
           >
                         <Label row="0" col="0" text="&#xf002;" class="nt-icon fas" />
-                        <Label row="0" col="1" text="iOS Crash Async" class="p-r-10" />
+                        <Label row="0" col="1" text="Crash Async" class="p-r-10" />
                     </GridLayout>
 
                     <GridLayout
             columns="auto, *"
-            class="{{ 'nt-drawer__list-item' + (selectedPage === 'iOS Crash Sync' ? ' -selected': '') }}"
+            class="{{ 'nt-drawer__list-item' + (selectedPage === 'Crash Sync' ? ' -selected': '') }}"
             route="view/sync/sync-page"
-            title="iOS Crash Sync"
+            title="Crash Sync"
             tap="onNavigationItemTap"
           >
                         <Label row="0" col="0" text="&#xf005;" class="nt-icon fas" />
-                        <Label row="0" col="1" text="iOS Crash Sync" class="p-r-10" />
+                        <Label row="0" col="1" text="Crash Sync" class="p-r-10" />
                     </GridLayout>
 
                 </StackLayout>
