@@ -11,17 +11,19 @@ import { Util } from '~/shared/util'
 const RESPONSE_TIME_DEFAULT: number = 1000 // the first run time. E.g. 1000
 const RESPONSE_TIME_DECREMENT: number = 50 // amount of time to decrement on each reload, set to zero for no decrement
 const RELOAD_TIME: number = 1000 // time between each page reload
-let HANDLE = null // clear the timeout on Page.unloaded
 
-const _RESPONSE_TIME_MIN: number = 50 // don't change this value
-
-let vm: AsyncViewModel
+// don't change these values unless you know what you're doing
+const _RESPONSE_TIME_MIN: number = 50
+let _HANDLE = null // clear the timeout on Page.unloaded
 
 // validation
 if (RESPONSE_TIME_DECREMENT < 0 || RESPONSE_TIME_DECREMENT > RESPONSE_TIME_DEFAULT) throw new Error(`RESPONSE_TIME_DECREMENT "${RESPONSE_TIME_DECREMENT}" must be greater than or equal to zero and less than RESPONSE_TIME_DEFAULT`)
 if (RESPONSE_TIME_DEFAULT <= _RESPONSE_TIME_MIN) throw new Error(`RESPONSE_TIME_DEFAULT "${RESPONSE_TIME_DEFAULT}" must be greater than _RESPONSE_TIME_MIN`)
 if (RELOAD_TIME <= 0) throw new Error(`RELOAD_TIME "${RELOAD_TIME}" must be greater than zero`)
 if (_RESPONSE_TIME_MIN <= 0) throw new Error(`_RESPONSE_TIME_MIN "${_RESPONSE_TIME_MIN}" must be greater than zero`)
+
+// global variables
+let vm: AsyncViewModel
 
 export async function _navigatingTo(data: NavigatedData) {
   const page = <Page>data.object
@@ -41,7 +43,7 @@ export async function _navigatingTo(data: NavigatedData) {
   )
 
   // will eventually freeze the screen with reload button off the screen as it's not loading the CSS correctly
-  HANDLE = setTimeout(() => {
+  _HANDLE = setTimeout(() => {
     console.warn(`${vm.id} (${vm.responseTime} ms): reload`, Nav.currentPageRoute, new Date().toISOString())
     Nav.reloadContext({ id: vm.id, responseTime: Math.max(vm.responseTime - RESPONSE_TIME_DECREMENT, 50) })
   }, RELOAD_TIME)
@@ -52,7 +54,8 @@ export async function _loaded(data: EventData) {
 }
 
 export async function _unloaded(data: EventData) {
-  if (HANDLE !== null) clearTimeout(HANDLE)
+  if (_HANDLE !== null) clearTimeout(_HANDLE)
+  _HANDLE = null
   console.log(`${vm.id} (${vm.responseTime} ms): ${Nav.currentPageRoute} async _unloaded`)
 }
 
