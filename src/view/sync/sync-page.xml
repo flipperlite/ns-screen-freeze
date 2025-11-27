@@ -1,0 +1,24 @@
+<Page
+    navigatingTo="_navigatingTo"
+    loaded="_loaded"
+    unloaded="_unloaded"
+    navigatingFrom="_navigatingFrom"
+    navigatedFrom="_navigatedFrom"
+    layoutChanged="_layoutChanged"
+    
+    xmlns="http://schemas.nativescript.org/tns.xsd">
+
+    <ActionBar>
+        <NavigationButton visibility="hidden"></NavigationButton>
+        <GridLayout columns="50,*,auto" class="ns-action-bar">
+            <Label class="fas" text="&#xf0c9;" tap="{{ showDrawer }}" column="0"/>
+            <Label class="action-bar-title" text="Sync Example" column="1" />
+            <Label class="fas" text="&#xf2f9;" tap="{{ reload }}" column="2"/>
+        </GridLayout>
+    </ActionBar>
+
+    <GridLayout class="page__content">
+        <Label class="page__content-icon far" text="&#xf1ea;"></Label>
+        <Label class="page__content-placeholder" text="{{ id + ' (' + reloadTime + ' ms) : ' + message }}" id="message"></Label>
+    </GridLayout>
+</Page>

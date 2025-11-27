@@ -1,0 +1,30 @@
+<Page
+    navigatingTo="_navigatingTo"
+    loaded="_loaded"
+    unloaded="_unloaded"
+    navigatingFrom="_navigatingFrom"
+    navigatedFrom="_navigatedFrom"
+    layoutChanged="_layoutChanged"
+
+    xmlns="http://schemas.nativescript.org/tns.xsd">
+
+  <ActionBar>
+    <NavigationButton visibility="hidden"></NavigationButton>
+    <GridLayout columns="50,*,auto" class="ns-action-bar">
+      <Label class="fas" text="&#xf0c9;" tap="{{ showDrawer }}" column="0"/>
+      <Label class="action-bar-title" text="Home" column="1" />
+      <Label class="fas" text="&#xf2f9;" tap="{{ reload }}" column="2"/>
+    </GridLayout>
+  </ActionBar>
+
+  <ScrollView class="page__content">
+    <StackLayout>
+      <Label class="page__content-placeholder" margin="10" text="{{ message }}" id="message" textWrap="true"></Label>
+      <Repeater items="{{ platforms }}" id="platforms">
+        <Repeater.itemTemplate>
+          <Label class="page__content-placeholder" margin="10" text="{{ $value }}" />
+        </Repeater.itemTemplate>
+      </Repeater>
+    </StackLayout>
+  </ScrollView>
+</Page>
