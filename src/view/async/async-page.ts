@@ -22,18 +22,11 @@ if (RESPONSE_TIME_DEFAULT <= _RESPONSE_TIME_MIN) throw new Error(`RESPONSE_TIME_
 if (RELOAD_TIME <= 0) throw new Error(`RELOAD_TIME "${RELOAD_TIME}" must be greater than zero`)
 if (_RESPONSE_TIME_MIN <= 0) throw new Error(`_RESPONSE_TIME_MIN "${_RESPONSE_TIME_MIN}" must be greater than zero`)
 
-// global variables
+// page variables
 let vm: AsyncViewModel
 
-export async function _navigatingTo(data: NavigatedData) {
-  const page = <Page>data.object
-
-  // Setup ViewModel and page global variables
-  vm = new AsyncViewModel(data.context)
-  vm.responseTime = vm.responseTime || RESPONSE_TIME_DEFAULT
-  vm.id = Util.getNextLetter(vm.id)
-  page.bindingContext = vm
-  console.log(`${vm.id} (${vm.responseTime} ms): ${Nav.currentPageRoute} async _navigatingTo`)
+export async function _navigatedTo(data: NavigatedData) {
+  console.log(`${vm.id} (${vm.responseTime} ms): ${Nav.currentPageRoute} async _navigatedTo`)
 
   // Mock an API reponse with minimum vm.responseTime
   vm.message = await Util.mock(
@@ -47,6 +40,17 @@ export async function _navigatingTo(data: NavigatedData) {
     console.warn(`${vm.id} (${vm.responseTime} ms): reload`, Nav.currentPageRoute, new Date().toISOString())
     Nav.reloadContext({ id: vm.id, responseTime: Math.max(vm.responseTime - RESPONSE_TIME_DECREMENT, 50) })
   }, RELOAD_TIME)
+}
+
+export async function _navigatingTo(data: NavigatedData) {
+  // Setup ViewModel and page global variables
+  const page = <Page>data.object
+  vm = new AsyncViewModel(data.context)
+  vm.responseTime = vm.responseTime || RESPONSE_TIME_DEFAULT
+  vm.id = Util.getNextLetter(vm.id)
+  page.bindingContext = vm
+
+  console.log(`${vm.id} (${vm.responseTime} ms): ${Nav.currentPageRoute} async _navigatingTo`)
 }
 
 export async function _loaded(data: EventData) {

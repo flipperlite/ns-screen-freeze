@@ -31,17 +31,6 @@
 
                     <GridLayout
             columns="auto, *"
-            class="{{ 'nt-drawer__list-item' + (selectedPage === 'Browse' ? ' -selected': '') }}"
-            route="view/browse/browse-page"
-            title="Browse"
-            tap="onNavigationItemTap"
-          >
-                        <Label row="0" col="0" text="&#xf1ea;" class="nt-icon far" />
-                        <Label row="0" col="1" text="Browse" class="p-r-10" />
-                    </GridLayout>
-
-                    <GridLayout
-            columns="auto, *"
             class="{{ 'nt-drawer__list-item' + (selectedPage === 'Crash Async' ? ' -selected': '') }}"
             route="view/async/async-page"
             title="Crash Async"

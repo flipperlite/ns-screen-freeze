@@ -7,6 +7,6 @@ export class SyncViewModel extends ViewModel {
 
   constructor (context?: Record<string, any>) {
     super(context)
-    Object.assign(this, context)
+    Object.assign(this, context) // must exist in sub class and not super class due to new props in sub class get defaulted/initialized/overwritten after the super(context) line
   }
 }

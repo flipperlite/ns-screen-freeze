@@ -7,12 +7,12 @@ import { Nav } from '~/shared/nav'
 // Page events
 //=======================================
 
-export async function _navigatingTo(data: NavigatedData) {
-  const page = <Page>data.object
+export async function _navigatedTo(data: NavigatedData) {
+  console.log(`${Nav.currentPageRoute} async _navigatedTo`)
 
+  const page = <Page>data.object
   const vm = new HomeViewModel(data.context)
   vm.id = Util.getNextLetter(vm.id)
-  console.log(`${Nav.currentPageRoute} async _navigatingTo`)
 
   const text = 'Open Side Drawer and choose Crash Async or Crash Sync. Then wait for screen to freeze by watching the console output stop. The following have crashed:'
   const platforms = new ObservableArray([
@@ -26,6 +26,10 @@ export async function _navigatingTo(data: NavigatedData) {
   vm.message = text
   vm.platforms = platforms
   page.bindingContext = vm
+}
+
+export async function _navigatingTo(data: NavigatedData) {
+  console.log(`${Nav.currentPageRoute} async _navigatingTo`)
 }
 
 export async function _loaded(data: EventData) {
