@@ -2,7 +2,7 @@ import { EventData, NavigatedData, Page } from '@nativescript/core'
 import { SyncViewModel } from './sync-view-model'
 import { Nav } from '~/shared/nav'
 import { Util } from '~/shared/util'
-import { PAGE_RELOAD_TIME_RANDOM_MAX } from '~/_const'
+import { PAGE_RELOAD_TIME_RANDOM_MAX, PAGE_RELOAD_TIME_RANDOM_MIN } from '~/_const'
 
 //=======================================
 // Variables
@@ -20,7 +20,7 @@ export function _navigatedTo(data: NavigatedData) {
   console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} _navigatedTo`)
 
   // will eventually freeze the screen with reload button off the screen as it's not loading the CSS correctly
-  const reloadTime = Util.randomInt(PAGE_RELOAD_TIME_RANDOM_MAX)
+  const reloadTime = Util.randomInt(PAGE_RELOAD_TIME_RANDOM_MAX, PAGE_RELOAD_TIME_RANDOM_MIN)
   _HANDLE = setTimeout(() => {
     console.info('go', Nav.currentPageRoute, new Date().toISOString())
     Nav.reloadContext({ id: _VM.id, reloadTime })

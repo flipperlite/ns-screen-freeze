@@ -14,7 +14,7 @@ export async function _navigatedTo(data: NavigatedData) {
   const vm = new HomeViewModel(data.context)
   vm.id = Util.getNextLetter(vm.id)
 
-  const text = 'Use this sample app to find hard to diagnose timing issues with screen freezes, page loads, and NS garbage collection (GC). Modify ~/_const.ts and select from the side drawer "Run Async Test" or "Run Sync Test"'
+  const text = 'Use this sample app to find hard to diagnose timing issues with screen freezes, page loads, and NS garbage collection (GC). Modify package.json and/or ~/_const.ts (if desired) and select from the side drawer "Run Async Test" or "Run Sync Test".'
   const devices = new ObservableArray([
 
   ])
