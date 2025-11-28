@@ -1,7 +1,7 @@
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
-import { Application, EventData, Frame, GridLayout } from '@nativescript/core'
+import { EventData, GridLayout } from '@nativescript/core'
 import { AppRootViewModel } from './app-root-view-model'
-import { DEFAULT_PAGE_ROUTE } from '~/shared/const'
+import { DEFAULT_PAGE_ROUTE } from '~/_const'
 import { Nav } from '~/shared/nav'
 
 export function onLoaded(args: EventData): void {

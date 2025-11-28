@@ -31,24 +31,24 @@
 
                     <GridLayout
             columns="auto, *"
-            class="{{ 'nt-drawer__list-item' + (selectedPage === 'Crash Async' ? ' -selected': '') }}"
+            class="{{ 'nt-drawer__list-item' + (selectedPage === 'Run Async Test' ? ' -selected': '') }}"
             route="view/async/async-page"
-            title="Crash Async"
+            title="Run Async Test"
             tap="onNavigationItemTap"
           >
                         <Label row="0" col="0" text="&#xf002;" class="nt-icon fas" />
-                        <Label row="0" col="1" text="Crash Async" class="p-r-10" />
+                        <Label row="0" col="1" text="Run Async Test" class="p-r-10" />
                     </GridLayout>
 
                     <GridLayout
             columns="auto, *"
-            class="{{ 'nt-drawer__list-item' + (selectedPage === 'Crash Sync' ? ' -selected': '') }}"
+            class="{{ 'nt-drawer__list-item' + (selectedPage === 'Run Sync Test' ? ' -selected': '') }}"
             route="view/sync/sync-page"
-            title="Crash Sync"
+            title="Run Sync Test"
             tap="onNavigationItemTap"
           >
                         <Label row="0" col="0" text="&#xf005;" class="nt-icon fas" />
-                        <Label row="0" col="1" text="Crash Sync" class="p-r-10" />
+                        <Label row="0" col="1" text="Run Sync Test" class="p-r-10" />
                     </GridLayout>
 
                 </StackLayout>

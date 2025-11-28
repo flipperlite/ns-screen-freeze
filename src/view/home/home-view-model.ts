@@ -5,7 +5,7 @@ import { Nav } from '~/shared/nav'
 
 export class HomeViewModel extends ViewModel {
   @ObservableProperty() id: string = null
-  @ObservableProperty() platforms: ObservableArray<string> = new ObservableArray()
+  @ObservableProperty() devices: ObservableArray<string> = new ObservableArray()
 
   reload () {
     console.info('go', Nav.currentPageRoute, new Date().toISOString())
