@@ -19,14 +19,16 @@ let _VM: SyncViewModel
 export function _navigatedTo(data: NavigatedData) {
   console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} _navigatedTo`)
 
-  // will eventually freeze the screen with reload button off the screen as it's not loading the CSS correctly
-  const reloadTime = Util.randomInt(PAGE_RELOAD_TIME_RANDOM_MAX, PAGE_RELOAD_TIME_RANDOM_MIN)
   _HANDLE = setTimeout(() => {
     console.info('go', Nav.currentPageRoute, new Date().toISOString())
-    Nav.reloadContext({ id: _VM.id, reloadTime })
-  }, reloadTime)
+    Nav.reloadContext({ id: _VM.id })
+  }, _VM.reloadTime)
 }
 
+/**
+ * The first page event so we need to setup page variables here
+ * @param data The navigated data that contains previous run context like { id: "A" }
+ */
 export function _navigatingTo(data: NavigatedData) {
   const page = <Page>data.object
   const context = data.context
@@ -34,6 +36,9 @@ export function _navigatingTo(data: NavigatedData) {
   _VM = new SyncViewModel(data.context)
   _VM.id = Util.getNextLetter(_VM.id)
   _VM.message = new Date().toISOString()
+  
+  // will eventually freeze the screen with reload button off the screen as it's not loading the CSS correctly
+  _VM.reloadTime = Util.randomInt(PAGE_RELOAD_TIME_RANDOM_MAX, PAGE_RELOAD_TIME_RANDOM_MIN)
   page.bindingContext = _VM
 
   console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} _navigatingTo`)
