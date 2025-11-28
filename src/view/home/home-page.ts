@@ -14,17 +14,13 @@ export async function _navigatedTo(data: NavigatedData) {
   const vm = new HomeViewModel(data.context)
   vm.id = Util.getNextLetter(vm.id)
 
-  const text = 'Open Side Drawer and choose Crash Async or Crash Sync. Then wait for screen to freeze by watching the console output stop. The following have crashed:'
-  const platforms = new ObservableArray([
-    'Simulator iPhone 17 Pro (iOS 26.1)',
-    'Simulator iPhone 15 Pro (iOS 17.2)',
-    'Real iPhone 13 Pro (iOS 26.1)',
-    'Real Essential PH-1 (Android 10)',
-    'Emulator Pixel 3a (Android 14)',
+  const text = 'Use this sample app to find hard to diagnose timing issues with screen freezes, page loads, and NS garbage collection (GC). Modify ~/_const.ts and select from the side drawer "Run Async Test" or "Run Sync Test"'
+  const devices = new ObservableArray([
+
   ])
 
   vm.message = text
-  vm.platforms = platforms
+  vm.devices = devices
   page.bindingContext = vm
 }
 

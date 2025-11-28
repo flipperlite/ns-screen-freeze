@@ -2,7 +2,7 @@ import { Observable } from '@nativescript/core'
 
 import { ObservableProperty } from '../shared/observable-property-decorator'
 import { SelectedPageService } from '../shared/selected-page-service'
-import { DEFAULT_PAGE_ROUTE } from '~/shared/const'
+import { DEFAULT_PAGE_ROUTE } from '~/_const'
 
 export class AppRootViewModel extends Observable {
   @ObservableProperty() selectedPage: string

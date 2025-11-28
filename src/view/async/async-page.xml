@@ -21,12 +21,12 @@
     <GridLayout rows="*" class="page__content">
         <StackLayout row="0" visibility="{{ isWaiting ? 'visible' : 'collapsed' }}">
 
-            <Label class="page__content-placeholder" text="{{ 'Waiting on mock API (' + responseTime + ' ms)' }}" id="msgWaiting"></Label>
+            <Label class="page__content-placeholder" text="{{ 'Waiting on mock API (' + responseTime + ' ms)' }}" id="msgWaiting" textWrap="true"></Label>
         </StackLayout>
 
         <StackLayout row="0" visibility="{{ !isWaiting ? 'visible' : 'collapsed' }}">
             <Label class="page__content-icon fas" text="&#xf015;"></Label>
-            <Label class="page__content-placeholder" text="{{ id + ' (' + responseTime + ' ms) ' + message }}" id="message"></Label>
+            <Label class="page__content-placeholder" text="{{ id + ' (' + responseTime + ' ms) ' + message }}" id="message" textWrap="true"></Label>
         </StackLayout>
     </GridLayout>
 </Page>

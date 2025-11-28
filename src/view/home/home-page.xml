@@ -21,7 +21,7 @@
   <ScrollView class="page__content">
     <StackLayout>
       <Label class="page__content-placeholder" margin="10" text="{{ message }}" id="message" textWrap="true"></Label>
-      <Repeater items="{{ platforms }}" id="platforms">
+      <Repeater items="{{ devices }}" id="devices">
         <Repeater.itemTemplate>
           <Label class="page__content-placeholder" margin="10" text="{{ $value }}" />
         </Repeater.itemTemplate>
