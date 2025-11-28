@@ -1,5 +1,6 @@
 <Page
     navigatingTo="_navigatingTo"
+    navigatedTo="_navigatedTo"
     loaded="_loaded"
     unloaded="_unloaded"
     navigatingFrom="_navigatingFrom"
