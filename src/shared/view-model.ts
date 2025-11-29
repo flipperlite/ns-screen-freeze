@@ -7,21 +7,19 @@ export class ViewModel extends Observable {
   @ObservableProperty() isWaiting: boolean = true
 
   /**
-   * Tapplable event to show the RadSideDrawer
+   * Tappable event to show the RadSideDrawer
    */
   showDrawer = Nav.showDrawer
 
   /**
-   * Tapplable event to close the RadSideDrawer
+   * Tappable event to close the RadSideDrawer
    */
   closeDrawer = Nav.closeDrawer
 
   /**
    * Reload the current page
    */
-  reload () {
-    Nav.reload()
-  }
+  reload = Nav.reload
 
   constructor (context?: Record<string, any>) {
     super()

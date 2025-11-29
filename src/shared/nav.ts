@@ -20,14 +20,14 @@ export class Nav {
   }
 
   /**
-   * Tapplable event to show the RadSideDrawer
+   * Tappable event to show the RadSideDrawer
    */
   static showDrawer(): void {
     Nav.getDrawer().showDrawer()
   }
 
   /**
-   * Tapplable event to close the RadSideDrawer
+   * Tappable event to close the RadSideDrawer
    */
   static closeDrawer(): void {
     Nav.getDrawer().closeDrawer()
@@ -39,6 +39,8 @@ export class Nav {
    * @param context The optional NavigationEntry.context to send to the next page or pageRoute
    */
   static reload(pageRoute?: string, context?: Record<string, any>) {
+    // NOTE: If used from XML like: tap="{{ reload }}", you'll get EventData as pageRoute
+    if (pageRoute && typeof pageRoute !== 'string') pageRoute = null // DO NOT REMOVE!
     Nav.go(pageRoute || Nav.currentPageRoute, context || Nav.currentContext)
   }
 
