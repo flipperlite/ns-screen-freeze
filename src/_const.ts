@@ -1,4 +1,5 @@
-const DEFAULT_PAGE_ROUTE = 'view/home/home-page'
+const DEFAULT_PAGE_ROUTE: string = 'view/home/home-page' // The entry page of the app
+const NAV_GO_USE_SETTIMEOUT: boolean = false // setTimeout on navigation to avoid app crashing "Exception Type: EXC_BAD_ACCESS (SIGSEGV)" on rapid navigate commands
 
 // sync-page.ts - all units of time are milliseconds
 const PAGE_RELOAD_TIME_RANDOM_MAX: number = 600 // max time between each page reload
@@ -19,6 +20,7 @@ if (PAGE_RELOAD_TIME <= 0) throw new Error(`PAGE_RELOAD_TIME "${PAGE_RELOAD_TIME
 // final export
 export {
   DEFAULT_PAGE_ROUTE,
+  NAV_GO_USE_SETTIMEOUT,
   PAGE_RELOAD_TIME_RANDOM_MAX,
   PAGE_RELOAD_TIME_RANDOM_MIN,
   RESPONSE_TIME_START,
