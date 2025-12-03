@@ -1,5 +1,6 @@
 import { Application, Frame } from "@nativescript/core";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import { NAV_GO_USE_SETTIMEOUT } from "~/_const";
 
 export class Nav {
   static readonly DELAY_MS: number = 0 // setTimeout on navigation to avoid app crashing "Exception Type: EXC_BAD_ACCESS (SIGSEGV)"
@@ -75,7 +76,7 @@ export class Nav {
    */
   static readonly navigate = (pageRoute: string, context?: Record<string, any>, ...fns: Array<() => void>): void => {
     const label = 'Nav.navigate'
-    Nav.validatePageRoute(pageRoute, label)
+    Nav.validatePageRoute(pageRoute, `${label}: pageRoute`)
 
     Frame.topmost().navigate({
       moduleName: pageRoute,
@@ -85,9 +86,10 @@ export class Nav {
       context,
     })
 
-    for (const fn of fns) {
-      fn()
-    }
+    Nav.currentPageRoute = pageRoute
+    Nav.currentContext = context
+
+    for (const fn of fns) fn()
   }
 
   /**
@@ -99,11 +101,14 @@ export class Nav {
    * @param fns An optional spread array of no arg function to run once navigation is complete. E.g. Nav.closeDrawer (without the parentheses)
    */
   static go (pageRoute: string, context?: Record<string, any>, ...fns: Array<() => void>): void {
-    // setTimeout on navigation to avoid app crashing "Exception Type: EXC_BAD_ACCESS (SIGSEGV)"
-    setTimeout(() => {
+    if (NAV_GO_USE_SETTIMEOUT) {
+      // setTimeout on navigation to avoid app crashing "Exception Type: EXC_BAD_ACCESS (SIGSEGV)" on rapid navigate commands
+      setTimeout(() => {
+        Nav.navigate(pageRoute, context, ...fns)
+      }, Nav.DELAY_MS)
+    } else {
+      // don't use setTimeout so we don't mask or hide any app crashing "Exception Type: EXC_BAD_ACCESS (SIGSEGV)" on rapid navigate commands
       Nav.navigate(pageRoute, context, ...fns)
-      Nav.currentPageRoute = pageRoute
-      Nav.currentContext = context
-    }, Nav.DELAY_MS)
+    }
   }
 }
