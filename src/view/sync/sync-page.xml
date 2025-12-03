@@ -1,25 +1,26 @@
 <Page
-    navigatingTo="navigatingTo"
-    navigatedTo="navigatedTo"
-    loaded="loaded"
-    unloaded="unloaded"
-    navigatingFrom="navigatingFrom"
-    navigatedFrom="navigatedFrom"
-    layoutChanged="layoutChanged"
-    
-    xmlns="http://schemas.nativescript.org/tns.xsd">
+  navigatingTo="navigatingTo"
+  navigatedTo="navigatedTo"
+  loaded="loaded"
+  unloaded="unloaded"
+  navigatingFrom="navigatingFrom"
+  navigatedFrom="navigatedFrom"
+  layoutChanged="layoutChanged"
+  
+  xmlns="http://schemas.nativescript.org/tns.xsd">
 
-    <ActionBar>
-        <NavigationButton visibility="hidden"></NavigationButton>
-        <GridLayout columns="50,*,auto" class="ns-action-bar">
-            <Label class="fas" text="&#xf0c9;" tap="{{ showDrawer }}" column="0"/>
-            <Label class="action-bar-title" text="Sync Example" column="1" />
-            <Label class="fas" text="&#xf2f9;" tap="{{ reload }}" column="2"/>
-        </GridLayout>
-    </ActionBar>
-
-    <GridLayout class="page__content">
-        <Label class="page__content-icon far" text="&#xf1ea;"></Label>
-        <Label class="page__content-placeholder" text="{{ id + ' (' + reloadTime + ' ms) : ' + message }}" id="message" textWrap="true"></Label>
+  <ActionBar>
+    <NavigationButton visibility="hidden"></NavigationButton>
+    <GridLayout columns="50,*,auto" class="ns-action-bar">
+      <Label class="fas nav-left" text="&#xf0c9;" tap="{{ showDrawer }}" column="0"/>
+      <Label class="nav-center" text="Sync Example" column="1" />
+      <Label class="fas nav-right" text="&#xf2f9;" tap="{{ reload }}" column="2"/>
     </GridLayout>
+  </ActionBar>
+
+  <StackLayout class="page__content" tap="stopLoop">
+    <Label class="page__content-icon far" text="&#xf1ea;"></Label>
+    <Label class="page__content-placeholder" id="loopStatus" text="{{ loopStatus }}" textWrap="true" />
+    <Label class="page__content-placeholder" text="{{ id + ' (' + reloadTime + ' ms) : ' + message }}" id="message" textWrap="true"></Label>
+  </StackLayout>
 </Page>
