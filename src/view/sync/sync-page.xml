@@ -1,11 +1,11 @@
 <Page
-    navigatingTo="_navigatingTo"
-    navigatedTo="_navigatedTo"
-    loaded="_loaded"
-    unloaded="_unloaded"
-    navigatingFrom="_navigatingFrom"
-    navigatedFrom="_navigatedFrom"
-    layoutChanged="_layoutChanged"
+    navigatingTo="navigatingTo"
+    navigatedTo="navigatedTo"
+    loaded="loaded"
+    unloaded="unloaded"
+    navigatingFrom="navigatingFrom"
+    navigatedFrom="navigatedFrom"
+    layoutChanged="layoutChanged"
     
     xmlns="http://schemas.nativescript.org/tns.xsd">
 

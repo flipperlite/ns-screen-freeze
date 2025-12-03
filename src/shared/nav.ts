@@ -2,6 +2,8 @@ import { Application, Frame } from "@nativescript/core";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 
 export class Nav {
+  static readonly DELAY_MS: number = 0 // setTimeout on navigation to avoid app crashing "Exception Type: EXC_BAD_ACCESS (SIGSEGV)"
+
   static currentPageRoute: string
   
   static currentContext: any
@@ -38,7 +40,7 @@ export class Nav {
    * @param pageRoute The full path of the page to navigate to. E.g. "view/home/home-page". NS calls it "moduleName".
    * @param context The optional NavigationEntry.context to send to the next page or pageRoute
    */
-  static reload(pageRoute?: string, context?: Record<string, any>) {
+  static reload(pageRoute?: string, context?: Record<string, any>): void {
     // NOTE: If used from XML like: tap="{{ reload }}", you'll get EventData as pageRoute
     if (pageRoute && typeof pageRoute !== 'string') pageRoute = null // DO NOT REMOVE!
     Nav.go(pageRoute || Nav.currentPageRoute, context || Nav.currentContext)
@@ -48,9 +50,44 @@ export class Nav {
    * Reload the Nav.currentPageRoute passing in required new context NavigationEntry
    * @param context The required NavigationEntry.context to send to the next page or pageRoute
    */
-  static reloadContext(context: Record<string, any>) {
+  static reloadContext(context: Record<string, any>): void {
     if (!context || typeof context !== 'object') throw new Error(`Arg context must be object, typeof = ${typeof context}`)
     Nav.go(Nav.currentPageRoute, context)
+  }
+
+  /**
+   * Validate the pageRoute value before attempting to process it
+   * @param pageRoute The full path of the page to navigate to. E.g. "view/_example/home/home-page". NS calls it "moduleName".
+   * @param label A text label to know where it came from
+   */
+  static readonly validatePageRoute = (pageRoute?: string, label?: string): void => {
+    label = label || 'Nav.validatePageRoute'
+
+    if (typeof pageRoute !== 'string') throw new ReferenceError(`${label}: Arg pageRoute must be a string (typeof ${typeof pageRoute}): ${JSON.stringify(pageRoute)}`)
+    if (!pageRoute.trim()) throw new ReferenceError(`${label}: Arg pageRoute cannot be empty: ${pageRoute}`)
+  }
+
+  /**
+   * The native NS OOTB call to Frame.topmost().navigate()
+   * @param pageRoute The full path of the page to navigate to. E.g. "view/_example/home/home-page". NS calls it "moduleName".
+   * @param context The optional NavigationEntry.context to send to the next page or pageRoute
+   * @param fns An optional spread array of no arg function to run once navigation is complete. E.g. Nav.closeDrawer (without the parentheses)
+   */
+  static readonly navigate = (pageRoute: string, context?: Record<string, any>, ...fns: Array<() => void>): void => {
+    const label = 'Nav.navigate'
+    Nav.validatePageRoute(pageRoute, label)
+
+    Frame.topmost().navigate({
+      moduleName: pageRoute,
+      transition: {
+        name: 'fade',
+      },
+      context,
+    })
+
+    for (const fn of fns) {
+      fn()
+    }
   }
 
   /**
@@ -59,19 +96,14 @@ export class Nav {
    * Usage: Nav.go(pageRoute, context, Nav.closeDrawer)
    * @param pageRoute The full path of the page to navigate to. E.g. "view/home/home-page". NS calls it "moduleName".
    * @param context The optional NavigationEntry.context to send to the next page or pageRoute
-   * @param fn An optional no arg function to run once navigation is complete. E.g. Nav.closeDrawer (without the parentheses)
+   * @param fns An optional spread array of no arg function to run once navigation is complete. E.g. Nav.closeDrawer (without the parentheses)
    */
-  static go (pageRoute: string, context?: Record<string, any>, fn?: () => void): void {
-    Frame.topmost().navigate({
-      moduleName: pageRoute,
-      transition: {
-        name: 'fade',
-      },
-      context,
-    })
-    Nav.currentPageRoute = pageRoute
-    Nav.currentContext = context
-
-    if (fn instanceof Function) fn()
+  static go (pageRoute: string, context?: Record<string, any>, ...fns: Array<() => void>): void {
+    // setTimeout on navigation to avoid app crashing "Exception Type: EXC_BAD_ACCESS (SIGSEGV)"
+    setTimeout(() => {
+      Nav.navigate(pageRoute, context, ...fns)
+      Nav.currentPageRoute = pageRoute
+      Nav.currentContext = context
+    }, Nav.DELAY_MS)
   }
 }

@@ -13,11 +13,16 @@ let _HANDLE = null
 let _VM: SyncViewModel
 
 //=======================================
-// Page events
+// Init Page events
 //=======================================
 
-export function _navigatedTo(data: NavigatedData) {
-  console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} _navigatedTo`)
+/**
+ * Page event navigatedTo.
+ * ID10T - Put Nav.go or Nav.reloadContext in this event, not navigatingTo.
+ * @param data The data passed in from the Page
+ */
+export function navigatedTo(data: NavigatedData) {
+  console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} navigatedTo`)
 
   _HANDLE = setTimeout(() => {
     console.info('go', Nav.currentPageRoute, new Date().toISOString())
@@ -26,10 +31,11 @@ export function _navigatedTo(data: NavigatedData) {
 }
 
 /**
- * The first page event so we need to setup page variables here
- * @param data The navigated data that contains previous run context like { id: "A" }
+ * Page event navigatingTo.
+ * ID10T - Never Nav.go or Nav.reloadContext from this event else you can crash the app GC or memory "Exception Type: EXC_BAD_ACCESS (SIGSEGV)". Put Nav.go or Nav.reloadContext in _navigatedTo.
+ * @param data The data passed in from the Page
  */
-export function _navigatingTo(data: NavigatedData) {
+export function navigatingTo(data: NavigatedData) {
   const page = <Page>data.object
   const context = data.context
 
@@ -41,27 +47,51 @@ export function _navigatingTo(data: NavigatedData) {
   _VM.reloadTime = Util.randomInt(PAGE_RELOAD_TIME_RANDOM_MAX, PAGE_RELOAD_TIME_RANDOM_MIN)
   page.bindingContext = _VM
 
-  console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} _navigatingTo`)
+  console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} navigatingTo`)
 }
 
-export function _loaded(data: EventData) {
-  console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} _loaded`)
+//=======================================
+// Other Page events
+//=======================================
+
+/**
+ * Page event loaded
+ * @param data The data passed in from the Page
+ */
+export function loaded(data: EventData) {
+  console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} loaded`)
 }
 
-export function _unloaded(data: EventData) {
+/**
+ * Page event unloaded
+ * @param data The data passed in from the Page
+ */
+export function unloaded(data: EventData) {
   if (_HANDLE !== null) clearTimeout(_HANDLE)
   _HANDLE = null
-  console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} _unloaded`)
+  console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} unloaded`)
 }
 
-export function _navigatingFrom(data: NavigatedData) {
-  console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} _navigatingFrom`)
+/**
+ * Page event navigatingFrom
+ * @param data The data passed in from the Page
+ */
+export function navigatingFrom(data: NavigatedData) {
+  console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} navigatingFrom`)
 }
 
-export function _navigatedFrom(data: NavigatedData) {
-  console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} _navigatedFrom`)
+/**
+ * Page event navigatedFrom
+ * @param data The data passed in from the Page
+ */
+export function navigatedFrom(data: NavigatedData) {
+  console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} navigatedFrom`)
 }
 
-export function _layoutChanged(data: EventData) {
-  console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} _layoutChanged`)
+/**
+ * Page event layoutChanged
+ * @param data The data passed in from the Page
+ */
+export function layoutChanged(data: EventData) {
+  console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} layoutChanged`)
 }
