@@ -4,17 +4,22 @@ import { Util } from '~/shared/util'
 import { Nav } from '~/shared/nav'
 
 //=======================================
-// Page events
+// Init Page events
 //=======================================
 
-export async function _navigatedTo(data: NavigatedData) {
-  console.log(`${Nav.currentPageRoute} async _navigatedTo`)
+/**
+ * Page event navigatedTo.
+ * ID10T - Put Nav.go or Nav.reloadContext in this event, not navigatingTo.
+ * @param data The data passed in from the Page
+ */
+export async function navigatedTo(data: NavigatedData) {
+  console.log(`${Nav.currentPageRoute} async navigatedTo`)
 
   const page = <Page>data.object
   const vm = new HomeViewModel(data.context)
   vm.id = Util.getNextLetter(vm.id)
 
-  const text = 'Use this sample app to find hard to diagnose timing issues with screen freezes, page loads, and NS garbage collection (GC). Modify package.json and/or ~/_const.ts (if desired) and select from the side drawer "Run Async Test" or "Run Sync Test".'
+  const text = 'Use this sample app to find hard to diagnose timing issues with screen freezes, page loads, NS garbage collection (GC) and OS memory issues like "Exception Type: EXC_BAD_ACCESS (SIGSEGV)". Modify package.json to test "@nativescript/core" versions and/or ~/_const.ts (if desired) and select from the side drawer "Run Async Test" or "Run Sync Test".'
   const devices = new ObservableArray([
 
   ])
@@ -24,26 +29,55 @@ export async function _navigatedTo(data: NavigatedData) {
   page.bindingContext = vm
 }
 
-export async function _navigatingTo(data: NavigatedData) {
-  console.log(`${Nav.currentPageRoute} async _navigatingTo`)
+/**
+ * Page event navigatingTo.
+ * ID10T - Never Nav.go or Nav.reloadContext from this event else you can crash the app GC or memory "Exception Type: EXC_BAD_ACCESS (SIGSEGV)". Put Nav.go or Nav.reloadContext in _navigatedTo.
+ * @param data The data passed in from the Page
+ */
+export async function navigatingTo(data: NavigatedData) {
+  console.log(`${Nav.currentPageRoute} async navigatingTo`)
 }
 
-export async function _loaded(data: EventData) {
-  console.log(`${Nav.currentPageRoute} async _loaded`)
+//=======================================
+// Other Page events
+//=======================================
+
+/**
+ * Page event loaded
+ * @param data The data passed in from the Page
+ */
+export async function loaded(data: EventData) {
+  console.log(`${Nav.currentPageRoute} async loaded`)
 }
 
-export async function _unloaded(data: EventData) {
-  console.log(`${Nav.currentPageRoute} async _unloaded`)
+/**
+ * Page event unloaded
+ * @param data The data passed in from the Page
+ */
+export async function unloaded(data: EventData) {
+  console.log(`${Nav.currentPageRoute} async unloaded`)
 }
 
-export async function _navigatingFrom(data: NavigatedData) {
-  console.log(`${Nav.currentPageRoute} async _navigatingFrom`)
+/**
+ * Page event navigatingFrom
+ * @param data The data passed in from the Page
+ */
+export async function navigatingFrom(data: NavigatedData) {
+  console.log(`${Nav.currentPageRoute} async navigatingFrom`)
 }
 
-export async function _navigatedFrom(data: NavigatedData) {
-  console.log(`${Nav.currentPageRoute} async _navigatedFrom`)
+/**
+ * Page event navigatedFrom
+ * @param data The data passed in from the Page
+ */
+export async function navigatedFrom(data: NavigatedData) {
+  console.log(`${Nav.currentPageRoute} async navigatedFrom`)
 }
 
-export async function _layoutChanged(data: EventData) {
-  console.log(`${Nav.currentPageRoute} async _layoutChanged`)
+/**
+ * Page event layoutChanged
+ * @param data The data passed in from the Page
+ */
+export async function layoutChanged(data: EventData) {
+  console.log(`${Nav.currentPageRoute} async layoutChanged`)
 }
