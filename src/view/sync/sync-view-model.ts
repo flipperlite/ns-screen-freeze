@@ -4,6 +4,7 @@ import { ViewModel } from "~/shared/view-model";
 export class SyncViewModel extends ViewModel {
   @ObservableProperty() id: string = null
   @ObservableProperty() reloadTime: number = null
+  @ObservableProperty() loopStatus: string = 'Tap on screen to stop the loop.'
 
   constructor (context?: Record<string, any>) {
     super(context)

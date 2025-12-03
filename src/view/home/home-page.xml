@@ -12,9 +12,9 @@
   <ActionBar>
     <NavigationButton visibility="hidden"></NavigationButton>
     <GridLayout columns="50,*,auto" class="ns-action-bar">
-      <Label class="fas" text="&#xf0c9;" tap="{{ showDrawer }}" column="0"/>
-      <Label class="action-bar-title" text="Home" column="1" />
-      <Label class="fas" text="&#xf2f9;" tap="{{ reload }}" column="2"/>
+      <Label class="fas nav-left" text="&#xf0c9;" tap="{{ showDrawer }}" column="0"/>
+      <Label class="nav-center" text="Home" column="1" />
+      <Label class="fas nav-right" text="&#xf2f9;" tap="{{ reload }}" column="2"/>
     </GridLayout>
   </ActionBar>
 

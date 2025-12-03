@@ -11,6 +11,7 @@ import { PAGE_RELOAD_TIME_RANDOM_MAX, PAGE_RELOAD_TIME_RANDOM_MIN } from '~/_con
 // page variables
 let _HANDLE = null
 let _VM: SyncViewModel
+let _STOP: boolean = false
 
 //=======================================
 // Init Page events
@@ -24,10 +25,12 @@ let _VM: SyncViewModel
 export function navigatedTo(data: NavigatedData) {
   console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} navigatedTo`)
 
-  _HANDLE = setTimeout(() => {
-    console.info('go', Nav.currentPageRoute, new Date().toISOString())
-    Nav.reloadContext({ id: _VM.id })
-  }, _VM.reloadTime)
+  if (!_STOP) {
+    _HANDLE = setTimeout(() => {
+      console.info('go', Nav.currentPageRoute, new Date().toISOString())
+      Nav.reloadContext({ id: _VM.id })
+    }, _VM.reloadTime)
+  }
 }
 
 /**
@@ -51,6 +54,21 @@ export function navigatingTo(data: NavigatedData) {
 }
 
 //=======================================
+// Functions
+//=======================================
+
+export function stopLoop () {
+  _STOP = true
+  clearHandle()
+  _VM.loopStatus = 'Stopped. Click Reload icon to continue.'
+}
+
+function clearHandle() {
+  if (_HANDLE !== null) clearTimeout(_HANDLE)
+  _HANDLE = null
+}
+
+//=======================================
 // Other Page events
 //=======================================
 
@@ -67,8 +85,9 @@ export function loaded(data: EventData) {
  * @param data The data passed in from the Page
  */
 export function unloaded(data: EventData) {
-  if (_HANDLE !== null) clearTimeout(_HANDLE)
-  _HANDLE = null
+  // reset
+  clearHandle()
+  _STOP = false
   console.log(`${_VM.id} (${_VM.reloadTime} ms) ${Nav.currentPageRoute} unloaded`)
 }
 

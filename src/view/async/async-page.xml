@@ -1,32 +1,33 @@
 <Page
-    navigatingTo="navigatingTo"
-    navigatedTo="navigatedTo"
-    loaded="loaded"
-    unloaded="unloaded"
-    navigatingFrom="navigatingFrom"
-    navigatedFrom="navigatedFrom"
-    layoutChanged="layoutChanged"
+  navigatingTo="navigatingTo"
+  navigatedTo="navigatedTo"
+  loaded="loaded"
+  unloaded="unloaded"
+  navigatingFrom="navigatingFrom"
+  navigatedFrom="navigatedFrom"
+  layoutChanged="layoutChanged"
+  
+  xmlns="http://schemas.nativescript.org/tns.xsd">
 
-    xmlns="http://schemas.nativescript.org/tns.xsd">
-
-    <ActionBar>
-        <NavigationButton visibility="hidden"></NavigationButton>
-        <GridLayout columns="50,*,auto" class="ns-action-bar">
-            <Label class="fas" text="&#xf0c9;" tap="{{ showDrawer }}" column="0"/>
-            <Label class="action-bar-title" text="Async Example" column="1" />
-            <Label class="fas" text="&#xf2f9;" tap="{{ reload }}" column="2"/>
-        </GridLayout>
-    </ActionBar>
-
-    <GridLayout rows="*" class="page__content">
-        <StackLayout row="0" visibility="{{ isWaiting ? 'visible' : 'collapsed' }}">
-
-            <Label class="page__content-placeholder" text="{{ 'Waiting on mock API (' + responseTime + ' ms)' }}" id="msgWaiting" textWrap="true"></Label>
-        </StackLayout>
-
-        <StackLayout row="0" visibility="{{ !isWaiting ? 'visible' : 'collapsed' }}">
-            <Label class="page__content-icon fas" text="&#xf015;"></Label>
-            <Label class="page__content-placeholder" text="{{ id + ' (' + responseTime + ' ms) ' + message }}" id="message" textWrap="true"></Label>
-        </StackLayout>
+  <ActionBar>
+    <NavigationButton visibility="hidden"></NavigationButton>
+    <GridLayout columns="50,*,auto" class="ns-action-bar">
+      <Label class="fas nav-left" text="&#xf0c9;" tap="{{ showDrawer }}" column="0"/>
+      <Label class="nav-center" text="Async Example" column="1" />
+      <Label class="fas nav-right" text="&#xf2f9;" tap="{{ reload }}" column="2"/>
     </GridLayout>
+  </ActionBar>
+
+  <GridLayout rows="*" class="page__content" tap="stopLoop">
+    <StackLayout row="0" visibility="{{ isWaiting ? 'visible' : 'collapsed' }}">
+      <Label class="page__content-placeholder" id="loopStatus1" text="{{ loopStatus }}" textWrap="true" />
+      <Label class="page__content-placeholder" text="{{ 'Waiting on mock API (' + responseTime + ' ms)' }}" id="msgWaiting" textWrap="true"></Label>
+    </StackLayout>
+
+    <StackLayout row="0" visibility="{{ !isWaiting ? 'visible' : 'collapsed' }}">
+      <Label class="page__content-icon fas" text="&#xf015;"></Label>
+      <Label class="page__content-placeholder" id="loopStatus2" text="{{ loopStatus }}" textWrap="true" />
+      <Label class="page__content-placeholder" text="{{ id + ' (' + responseTime + ' ms) ' + message }}" id="message" textWrap="true"></Label>
+    </StackLayout>
+  </GridLayout>
 </Page>
